@@ -10,7 +10,7 @@
  * ------------------
  * TABLE DES MATIERES
  * ------------------
- * LIBRAIRIES
+ * LIBRAIRIE
  ** Normalize
  *
  * UTILITAIRES
@@ -31,7 +31,7 @@
 /** LIBRAIRIES **/
 
 /* Normalize */
-// @use "../../node_modules/normalize.scss/normalize.scss";
+@use "../../node_modules/normalize.scss/normalize.scss";
 
 /** UTILITAIRES **/
 @use "utilitaires/variables";
@@ -43,5 +43,4 @@
 @use "base/typo";
 @use "base/grille";
 
-/** MODULES **/
-
+/** MODULES **/ 

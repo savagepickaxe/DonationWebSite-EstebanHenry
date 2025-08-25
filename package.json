@@ -4,6 +4,8 @@
   "description": "<!--  Ce fichier README.md est une documentation de base permettant de vous orienter dans la configuration idéale de votre projet.",
   "main": "index.js",
   "scripts": {
+    "watch": "sass --watch src/scss:public/css",
+    "build": "sass src/scss:dist/css --style=expanded --source-map",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/savagepickaxe/DonationWebSite-EstebanHenry/issues"
   },
-  "homepage": "https://github.com/savagepickaxe/DonationWebSite-EstebanHenry#readme"
+  "homepage": "https://github.com/savagepickaxe/DonationWebSite-EstebanHenry#readme",
+  "devDependencies": {
+    "normalize.scss": "^0.1.0"
+  }
 }
