@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "watch": "sass --watch src/scss:public/css",
-    "build": "sass src/scss:dist/css --style=expanded --source-map",
+    "build":  "sass src/scss:public/css --style=expanded --source-map",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
