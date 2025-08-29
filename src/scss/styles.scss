@@ -31,7 +31,7 @@
 /** LIBRAIRIES **/
 
 /* Normalize */
-@use "../../node_modules/normalize.scss/normalize.scss";
+//npm @use "../../node_modules/normalize.scss/normalize.scss";
 
 /** UTILITAIRES **/
 @use "utilitaires/variables";
@@ -43,4 +43,7 @@
 @use "base/typo";
 @use "base/grille";
 
-/** MODULES **/ 
+/** MODULES **/
+.invisible {
+    display: none;
+}
