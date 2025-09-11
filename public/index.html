@@ -17,13 +17,12 @@
         <section>
             <h2>Donation TeamWater</h2>
             <fieldset>
-                <legend>Type de don</legend>
+                      <legend>Type de don</legend>
                 <label for="unique">Don unique</label>
                 <input type="radio" id="unique" name="type-donation" value="Don unique" checked>
                 <label for="mensuel">Don mensuel</label>
                 <input type="radio" id="mensuel" name="type-donation" value="Don mensuel">
-            </fieldset>
-            <fieldset>
+
                 <legend>Montant du don</legend>
                 <label for="montant-10">$10</label>
                 <input type="radio" id="montant-10" name="montant-donation" value="10" checked>
@@ -35,20 +34,19 @@
                 <input type="radio" id="autre-montant" name="montant-donation" value="autre" maxlength="12">
                 <input type="number" id="autre-input" name="autre-montant" min="1" placeholder="Montant en $"
                     disabled>
-                  
-                    <span>vous navez pas rempli cette section</span>
+                    <div class="erreur" id="erreur-montant"></div>
 
             </fieldset>
             <fieldset>
                 <legend>Informations</legend>
                 <label for="nom">Nom</label>
                 <input type="text" id="nom" name="nom" maxlength="30" required>
+                <div class="erreur" id="erreur-nom"></div>
                 <label for="entreprise">Entreprise (optionnel)</label>
                 <input type="text" id="entreprise" name="entreprise" maxlength="30">
                 <label for="courriel">Courriel</label>
                 <input type="email" id="courriel" name="courriel" maxlength="30" required>
-                <span>vous navez pas rempli cette section</span>
-
+                <div class="erreur" id="erreur-courriel"></div>
             </fieldset>
             <fieldset>
                 <legend>Méthode de paiement</legend>
@@ -60,7 +58,9 @@
                 <input type="month" id="date-expiration" name="date-expiration" maxlength="20" required>
                 <label for="cvv">CVV</label>
                 <input type="text" id="cvv" name="cvv" pattern="\d{4}" maxlength="4" inputmode="numeric" required>
-<span>vous navez pas rempli cette section</span>
+                <div class="erreur" id="erreur-numero-carte"></div>
+                <div class="erreur" id="erreur-date-expiration"></div>
+                <div class="erreur" id="erreur-cvv"></div>
             </fieldset>
             <fieldset>
                 <legend>Resumé du don</legend>
@@ -70,7 +70,8 @@
                 <p>Entreprise: <span id="resume-compagnie">N/A</span></p>
                 <p>Courriel: <span id="resume-email"></span></p>
                 <p>Méthode de paiement: <span id="resume-paiement">Carte de crédit</span></p>
-               
+             
+
             </fieldset>
             <button id="precedent-unique" type="button">Précédent</button>
                   <button id="next-unique" type="button">Suivant</button>
