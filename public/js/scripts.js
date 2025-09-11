@@ -3,11 +3,16 @@ let etapeActuelle = 0;
 let boutonPrecedent;
 let boutonSuivant;
 let messages = {};
+const articleFooter = document.createElement("footer");
 const questionaireComplet = document.querySelectorAll("fieldset");
+const imagesBackground = document.querySelectorAll(".imagesBackground div");
 /*
 * Fonction pour initialiser le formulaire
 */
 function initialiserFormulaire() {
+    imagesBackground.forEach(function (img, index) {
+        img.classList.toggle("active", index == 0);
+    });
     questionaireComplet.forEach(function (p) {
         p.classList.add("invisible");
     });
@@ -20,6 +25,9 @@ function goPrecedent() {
     if (etapeActuelle > 0) {
         etapeActuelle--;
         changerEtape(etapeActuelle);
+        imagesBackground.forEach(function (img, index) {
+            img.classList.toggle("active", index === etapeActuelle);
+        });
         if (etapeActuelle === 0) {
             boutonPrecedent?.classList.toggle("invisible", true);
         }
@@ -38,6 +46,9 @@ function goSuivant(event) {
     if (etapeActuelle < questionaireComplet.length - 1) {
         etapeActuelle++;
         changerEtape(etapeActuelle);
+        imagesBackground.forEach(function (img, index) {
+            img.classList.toggle("active", index === etapeActuelle);
+        });
         boutonPrecedent?.classList.toggle("invisible", false);
         if (etapeActuelle === questionaireComplet.length - 1) {
             boutonSuivant?.classList.toggle("invisible", true);
@@ -53,15 +64,18 @@ function changerEtape(etapeSuivante) {
         // console.log("etapeSuivante " + etapeSuivante + " index " + index);
         if (etapeSuivante > index) {
             validerEtape(index);
-            // console.log("validation etape " + index);
         }
     });
+    questionaireComplet[etapeSuivante].appendChild(articleFooter);
 }
 async function obtenirMessages() {
     const reponse = await fetch('objJSONMessages.json');
     messages = await reponse.json();
     console.log(messages, " messages obtenusYAUNMESAGE");
 }
+/*
+* Fonction pour valider les champs
+*/
 function validerChamp(champ) {
     let valide = false;
     let idChamp = champ.id;
@@ -84,6 +98,9 @@ function validerChamp(champ) {
     }
     return valide;
 }
+/*
+* Fonction pour valider une étape
+*/
 function validerEtape(etape) {
     let etapeValide = true;
     const champs = questionaireComplet[etape].querySelectorAll("input, select, textarea");
@@ -103,17 +120,28 @@ function validerEtape(etape) {
     return etapeValide;
 }
 /*
+* Fonction pour créer les boutons
+*/
+function creerBoutons() {
+    const boutonPrecedent = document.createElement("button");
+    boutonPrecedent.type = "button";
+    boutonPrecedent.id = "precedent-unique";
+    boutonPrecedent.textContent = "Précédent";
+    const boutonSuivant = document.createElement("button");
+    boutonSuivant.type = "button";
+    boutonSuivant.id = "next-unique";
+    boutonSuivant.textContent = "Suivant";
+    articleFooter.appendChild(boutonPrecedent);
+    articleFooter.appendChild(boutonSuivant);
+    boutonPrecedent.addEventListener("click", goPrecedent);
+    boutonSuivant.addEventListener("click", goSuivant);
+}
+/*
 * Initialisation du formulaire et des boutons
 */
 document.addEventListener("DOMContentLoaded", () => {
+    creerBoutons();
+    questionaireComplet[0].appendChild(articleFooter);
     initialiserFormulaire();
     obtenirMessages();
-    boutonPrecedent = document.querySelector("#precedent-unique");
-    boutonSuivant = document.querySelector("#next-unique");
-    if (boutonPrecedent) {
-        boutonPrecedent.addEventListener("click", goPrecedent);
-    }
-    if (boutonSuivant) {
-        boutonSuivant.addEventListener("click", goSuivant);
-    }
 });

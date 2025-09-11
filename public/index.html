@@ -3,7 +3,9 @@
 
 <head>
     <meta charset="utf-8">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+    <link rel="icon" type="image/png" href="../asset/images/teamWaterLogo.png">
     <link rel="stylesheet" href="css/styles.css">
     <script defer src="js/scripts.js"></script>
     <title>
@@ -12,18 +14,22 @@
 </head>
 
 <body>
-    <h1>#TeamWater</h1>
+    <div class="imagesBackground">
+        <div class="imagesBackground__images"><img src="../asset/images/image1.jpg" alt=""></div>
+        <div class="imagesBackground__images"><img src="../asset/images/image2.jpg" alt=""></div>
+        <div class="imagesBackground__images"><img src="../asset/images/image3.jpg" alt=""></div>
+        <div class="imagesBackground__images"><img src="../asset/images/image4.jpg" alt=""></div>
+    </div>
+    
     <form action="merci.html" method="get">
-        <section>
-            <h2>Donation TeamWater</h2>
+        <section class="formulaire">
+            <img src="../asset\images\teamWaterLogo.png" alt="logo">
             <fieldset>
-                      <legend>Type de don</legend>
+                 <h2>Soutenez TeamWater</h2>
                 <label for="unique">Don unique</label>
                 <input type="radio" id="unique" name="type-donation" value="Don unique" checked>
                 <label for="mensuel">Don mensuel</label>
                 <input type="radio" id="mensuel" name="type-donation" value="Don mensuel">
-
-                <legend>Montant du don</legend>
                 <label for="montant-10">$10</label>
                 <input type="radio" id="montant-10" name="montant-donation" value="10" checked>
                 <label for="montant-25">$25</label>
@@ -35,10 +41,10 @@
                 <input type="number" id="autre-input" name="autre-montant" min="1" placeholder="Montant en $"
                     disabled>
                     <div class="erreur" id="erreur-montant"></div>
-
             </fieldset>
+          
             <fieldset>
-                <legend>Informations</legend>
+                  <h2>Soutenez TeamWater</h2>
                 <label for="nom">Nom</label>
                 <input type="text" id="nom" name="nom" maxlength="30" required>
                 <div class="erreur" id="erreur-nom"></div>
@@ -48,8 +54,9 @@
                 <input type="email" id="courriel" name="courriel" maxlength="30" required>
                 <div class="erreur" id="erreur-courriel"></div>
             </fieldset>
+
             <fieldset>
-                <legend>Méthode de paiement</legend>
+                    <h2>Soutenez TeamWater</h2>
                 <label for="carte-credit">Carte de crédit</label>
                 <input type="radio" id="carte-credit" name="methode-paiement" value="Carte de crédit" maxlength="16" checked>
                 <label for="numero-carte">Numéro de carte</label>
@@ -62,7 +69,9 @@
                 <div class="erreur" id="erreur-date-expiration"></div>
                 <div class="erreur" id="erreur-cvv"></div>
             </fieldset>
+          
             <fieldset>
+                  <h2>Soutenez TeamWater</h2>
                 <legend>Resumé du don</legend>
                 <p>Type de don: <span id="resume-type">Don unique</span></p>
                 <p>Montant du don: $<span id="resume-montant">10</span></p>
@@ -70,11 +79,8 @@
                 <p>Entreprise: <span id="resume-compagnie">N/A</span></p>
                 <p>Courriel: <span id="resume-email"></span></p>
                 <p>Méthode de paiement: <span id="resume-paiement">Carte de crédit</span></p>
-             
-
             </fieldset>
-            <button id="precedent-unique" type="button">Précédent</button>
-                  <button id="next-unique" type="button">Suivant</button>
+        
                  <button type="submit">Faire un don</button>
         </section>
 

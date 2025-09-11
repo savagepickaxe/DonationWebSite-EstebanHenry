@@ -2,7 +2,7 @@ let etapeActuelle = 0;
 let boutonPrecedent: HTMLButtonElement | null;
 let boutonSuivant: HTMLButtonElement | null;
 let messages = {} as erreursJSON;
-
+const articleFooter = document.createElement("footer");
 
 interface messageErreur {
     vide?: string;
@@ -14,15 +14,22 @@ interface erreursJSON {
 }
 
 const questionaireComplet = document.querySelectorAll("fieldset");
+const imagesBackground = document.querySelectorAll(".imagesBackground div");
 
 /*
 * Fonction pour initialiser le formulaire
 */
 function initialiserFormulaire(): void {
+    imagesBackground.forEach(function (img, index) {
+        img.classList.toggle("active", index == 0);
+    });
     questionaireComplet.forEach(function (p) {
         p.classList.add("invisible");
+
     });
+    
     questionaireComplet[0].classList.remove("invisible");
+
 }
 /*
 * Fonction pour aller à l'étape précédente
@@ -31,6 +38,9 @@ function goPrecedent(): void {
     if (etapeActuelle > 0) {
         etapeActuelle--;
         changerEtape(etapeActuelle);
+        imagesBackground.forEach(function (img, index) {
+            img.classList.toggle("active", index === etapeActuelle);
+        });
         if (etapeActuelle === 0) {
             boutonPrecedent?.classList.toggle("invisible", true);
         }
@@ -49,6 +59,9 @@ function goSuivant(event: Event): void {
     if (etapeActuelle < questionaireComplet.length - 1) {
         etapeActuelle++;
         changerEtape(etapeActuelle);
+        imagesBackground.forEach(function (img, index) {
+            img.classList.toggle("active", index === etapeActuelle);
+        });
         boutonPrecedent?.classList.toggle("invisible", false);
         if (etapeActuelle === questionaireComplet.length - 1) {
             boutonSuivant?.classList.toggle("invisible", true);
@@ -61,13 +74,16 @@ function goSuivant(event: Event): void {
 function changerEtape(etapeSuivante: number): void {
     questionaireComplet.forEach(function (p, index) {
         p.classList.toggle("invisible", index >= 0 && index !== etapeSuivante);
+
         // console.log("etapeSuivante " + etapeSuivante + " index " + index);
         if (etapeSuivante > index) {
             validerEtape(index);
-            // console.log("validation etape " + index);
+       
+          
         }
+    
     });
-
+ questionaireComplet[etapeSuivante].appendChild(articleFooter);
 }
 async function obtenirMessages(): Promise<void> {
     const reponse = await fetch('objJSONMessages.json')
@@ -76,6 +92,9 @@ async function obtenirMessages(): Promise<void> {
 
 
 }
+/*
+* Fonction pour valider les champs
+*/
 function validerChamp(champ: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement): boolean {
     let valide = false;
     let idChamp = champ.id;
@@ -96,6 +115,9 @@ function validerChamp(champ: HTMLInputElement | HTMLSelectElement | HTMLTextArea
     }
     return valide;
 }
+/*
+* Fonction pour valider une étape
+*/
 function validerEtape(etape: number): boolean {
     let etapeValide = true;
     const champs = questionaireComplet[etape].querySelectorAll("input, select, textarea");
@@ -114,17 +136,32 @@ function validerEtape(etape: number): boolean {
     return etapeValide;
 }
 /*
+* Fonction pour créer les boutons
+*/
+function creerBoutons(): void {
+
+const boutonPrecedent = document.createElement("button");
+boutonPrecedent.type = "button";
+boutonPrecedent.id = "precedent-unique";
+boutonPrecedent.textContent = "Précédent";
+
+const boutonSuivant = document.createElement("button");
+boutonSuivant.type = "button";
+boutonSuivant.id = "next-unique";
+boutonSuivant.textContent = "Suivant";
+
+articleFooter.appendChild(boutonPrecedent);
+articleFooter.appendChild(boutonSuivant);
+boutonPrecedent.addEventListener("click", goPrecedent);
+boutonSuivant.addEventListener("click", goSuivant);
+}
+
+/*
 * Initialisation du formulaire et des boutons
 */
 document.addEventListener("DOMContentLoaded", () => {
+    creerBoutons();
+    questionaireComplet[0].appendChild(articleFooter);
     initialiserFormulaire();
     obtenirMessages();
-    boutonPrecedent = document.querySelector("#precedent-unique") as HTMLButtonElement;
-    boutonSuivant = document.querySelector("#next-unique") as HTMLButtonElement;
-    if (boutonPrecedent) {
-        boutonPrecedent.addEventListener("click", goPrecedent);
-    }
-    if (boutonSuivant) {
-        boutonSuivant.addEventListener("click", goSuivant);
-    }
 });
