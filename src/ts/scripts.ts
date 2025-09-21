@@ -2,6 +2,8 @@ let etapeActuelle = 0;
 let boutonPrecedent: HTMLButtonElement | null;
 let boutonSuivant: HTMLButtonElement | null;
 let messages = {} as erreursJSON;
+let autreRadio: HTMLInputElement | null = null;
+let autreInput: HTMLInputElement | null = null;
 const articleFooter = document.createElement("footer");
 
 interface messageErreur {
@@ -14,7 +16,7 @@ interface erreursJSON {
 }
 
 const questionaireComplet = document.querySelectorAll("fieldset");
-const imagesBackground = document.querySelectorAll(".imagesBackground div");
+const imagesBackground = document.querySelectorAll(".imagesBackground li");
 
 /*
 * Fonction pour initialiser le formulaire
@@ -27,7 +29,7 @@ function initialiserFormulaire(): void {
         p.classList.add("invisible");
 
     });
-    
+
     questionaireComplet[0].classList.remove("invisible");
 
 }
@@ -74,16 +76,12 @@ function goSuivant(event: Event): void {
 function changerEtape(etapeSuivante: number): void {
     questionaireComplet.forEach(function (p, index) {
         p.classList.toggle("invisible", index >= 0 && index !== etapeSuivante);
-
         // console.log("etapeSuivante " + etapeSuivante + " index " + index);
         if (etapeSuivante > index) {
             validerEtape(index);
-       
-          
         }
-    
     });
- questionaireComplet[etapeSuivante].appendChild(articleFooter);
+    questionaireComplet[etapeSuivante].appendChild(articleFooter);
 }
 async function obtenirMessages(): Promise<void> {
     const reponse = await fetch('objJSONMessages.json')
@@ -128,11 +126,7 @@ function validerEtape(etape: number): boolean {
             etapeValide = false;
         }
     });
-    if (!etapeValide) {
-        questionaireComplet[etape].classList.add("erreur");
-    } else {
-        questionaireComplet[etape].classList.remove("erreur");
-    }
+
     return etapeValide;
 }
 /*
@@ -140,20 +134,39 @@ function validerEtape(etape: number): boolean {
 */
 function creerBoutons(): void {
 
-const boutonPrecedent = document.createElement("button");
-boutonPrecedent.type = "button";
-boutonPrecedent.id = "precedent-unique";
-boutonPrecedent.textContent = "Précédent";
+    const boutonPrecedent = document.createElement("button");
+    boutonPrecedent.type = "button";
+    boutonPrecedent.id = "precedent-unique";
+    boutonPrecedent.textContent = "Précédent";
 
-const boutonSuivant = document.createElement("button");
-boutonSuivant.type = "button";
-boutonSuivant.id = "next-unique";
-boutonSuivant.textContent = "Suivant";
+    const boutonSuivant = document.createElement("button");
+    boutonSuivant.type = "button";
+    boutonSuivant.id = "next-unique";
+    boutonSuivant.textContent = "Suivant";
 
-articleFooter.appendChild(boutonPrecedent);
-articleFooter.appendChild(boutonSuivant);
-boutonPrecedent.addEventListener("click", goPrecedent);
-boutonSuivant.addEventListener("click", goSuivant);
+    articleFooter.appendChild(boutonPrecedent);
+    articleFooter.appendChild(boutonSuivant);
+    boutonPrecedent.addEventListener("click", goPrecedent);
+    boutonSuivant.addEventListener("click", goSuivant);
+    const autreRadio = document.getElementById("autre-montant");
+    const autreInput = document.getElementById("autre-input");
+
+    // cacher au départ
+    if (autreInput) {
+        autreInput.style.display = "none";
+    }
+    // quand on change de radio
+    document.querySelectorAll('input[name="montant-donation"]').forEach(radio => {
+        radio.addEventListener("change", () => {
+
+            if (autreRadio.checked) {
+                autreInput.style.display = "inline-block";
+            } else {
+                autreInput.style.display = "none";
+                autreInput.value = ""; // reset si pas sélectionné
+            }
+        });
+    });
 }
 
 /*

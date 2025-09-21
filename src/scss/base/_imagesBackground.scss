@@ -1,30 +1,102 @@
-@media (min-width: 768px) { 
-.imagesBackground{
-      position: absolute;
-  display: flex;
-  width: 100%;
-  height: 100%;   
-  overflow: hidden;
-  z-index: -1; 
+/* Styles pour les images background en mode mobile */
+/* J'ai mis les max-width pour fix un bug que je n'ai pas compris */
+@media (max-width:768px) {
+  .imagesBackground {
 
-  &__images{
-     flex: 1; 
-  transition: flex 0.6s ease, opacity 0.6s ease;
+    overflow: hidden;
+    position: absolute;
+    width: fit-content;
+    height: 100%;
+    z-index: -1;
+    top: 0;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
 
-  &.active{
-    flex: 22;
-    opacity: 1;
+    &__images {
+      & ::marker {
+        display: none;
+      }
+
+      & h3 {
+        margin: 0;
+        position: absolute;
+        color: white;
+        height: fit-content;
+        font-size: 28px;
+        font-family: "Lalezar", sans-serif;
+        z-index: 1;
+
+      }
+
+      &:not(.active) {
+        display: none;
+
+        h3 {
+          display: none;
+        }
+      }
+
+      & img {
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+        max-width: 100vw;
+      }
+    }
   }
-  &:not(.active){
-    flex: 1;
-    opacity: 0.7;
-  }
-  & img{
+}
+
+/* Styles pour les images background */
+@media (min-width: 768px) {
+  .imagesBackground {
+    position: absolute;
+    display: flex;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-      border-radius: 8px;
-  }
+    overflow: hidden;
+    z-index: -1;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+
+    &__images {
+
+
+      flex: 1;
+      transition: flex 0.5s ease-in-out,
+        opacity 0.6s ease;
+
+      &.active {
+        flex: 22;
+        opacity: 1;
+      }
+
+      &:not(.active) {
+        flex: 1;
+        opacity: 0.7;
+
+
+      }
+
+      & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      /* Styles pour les Titre de secitons */
+      & h3 {
+        position: absolute;
+        color: white;
+
+        font-size: 60px;
+        font-family: "Lalezar", sans-serif;
+        z-index: 1;
+        margin: 0;
+        cursor: pointer;
+      }
     }
-}
+  }
 }

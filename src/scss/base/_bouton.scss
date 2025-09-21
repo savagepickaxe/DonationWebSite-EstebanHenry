@@ -5,6 +5,35 @@
 * @author Prenom Nom courriel
 * @todo Compléter selon l'énoncé de l'exercice
 */
+input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+
+/* Styles pour les boutons */
+button {
+  border: 3px solid black;
+  background-color: white;
+  border-radius: 8px;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  font-family: "Lalezar", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  font-size: 18px;
+
+  &:hover {
+    background-color: rgb(48, 63, 194);
+    color: white;
+    border: 3px solid rgb(48, 63, 194);
+  }
+
+  &:active {
+    background-color: #052479;
+    border: 3px solid #052479;
+  }
+}
 
 .bouton {
   background-color: variables.$vertLime;
@@ -12,22 +41,28 @@
   color: black;
   padding: 0.5em 1em;
   text-decoration: none;
+
   &:after {
     content: "»";
     margin-left: 0.4em;
   }
+
   &--hover {
     background-color: color.adjust(variables.$vertLime, $alpha: -0.25);
   }
+
   &--active {
     background-color: color.adjust(variables.$vertLime, $alpha: -0.5);
   }
+
   &--inverse {
     background-color: white;
     border: 2px solid variables.$vertLime;
+
     &--hover {
       border-color: color.adjust(variables.$vertLime, $alpha: -0.25);
     }
+
     &--active {
       border-color: color.adjust(variables.$vertLime, $alpha: -0.5);
     }

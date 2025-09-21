@@ -28,6 +28,8 @@
 /** LIBRAIRIES **/
 /* Normalize */
 /** UTILITAIRES **/
+/** MODULES **/
+@import url("https://fonts.googleapis.com/css2?family=Abel&family=DM+Serif+Text:ital@0;1&family=Judson:ital,wght@0,400;0,700;1,400&family=Lalezar&display=swap");
 /**
 * @author Prenom Nom courriel
 * @todo Importer la fonte Futura
@@ -120,6 +122,34 @@
 * @author Prenom Nom courriel
 * @todo Compléter selon l'énoncé de l'exercice
 */
+input[type=radio] {
+  position: absolute;
+  opacity: 0;
+}
+
+/* Styles pour les boutons */
+button {
+  border: 3px solid black;
+  background-color: white;
+  border-radius: 8px;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  font-family: "Lalezar", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  font-size: 18px;
+}
+button:hover {
+  background-color: rgb(48, 63, 194);
+  color: white;
+  border: 3px solid rgb(48, 63, 194);
+}
+button:active {
+  background-color: #052479;
+  border: 3px solid #052479;
+}
+
 .bouton {
   background-color: #bbd531;
   border-radius: 18px;
@@ -370,6 +400,46 @@ body {
     width: 100%;
   }
 }
+/* Styles pour les images background en mode mobile */
+/* J'ai mis les max-width pour fix un bug que je n'ai pas compris */
+@media (max-width: 768px) {
+  .imagesBackground {
+    overflow: hidden;
+    position: absolute;
+    width: fit-content;
+    height: 100%;
+    z-index: -1;
+    top: 0;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+  }
+  .imagesBackground__images ::marker {
+    display: none;
+  }
+  .imagesBackground__images h3 {
+    margin: 0;
+    position: absolute;
+    color: white;
+    height: fit-content;
+    font-size: 28px;
+    font-family: "Lalezar", sans-serif;
+    z-index: 1;
+  }
+  .imagesBackground__images:not(.active) {
+    display: none;
+  }
+  .imagesBackground__images:not(.active) h3 {
+    display: none;
+  }
+  .imagesBackground__images img {
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    max-width: 100vw;
+  }
+}
+/* Styles pour les images background */
 @media (min-width: 768px) {
   .imagesBackground {
     position: absolute;
@@ -378,10 +448,14 @@ body {
     height: 100%;
     overflow: hidden;
     z-index: -1;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
   }
   .imagesBackground__images {
     flex: 1;
-    transition: flex 0.6s ease, opacity 0.6s ease;
+    transition: flex 0.5s ease-in-out, opacity 0.6s ease;
+    /* Styles pour les Titre de secitons */
   }
   .imagesBackground__images.active {
     flex: 22;
@@ -397,10 +471,204 @@ body {
     object-fit: cover;
     border-radius: 8px;
   }
+  .imagesBackground__images h3 {
+    position: absolute;
+    color: white;
+    font-size: 60px;
+    font-family: "Lalezar", sans-serif;
+    z-index: 1;
+    margin: 0;
+    cursor: pointer;
+  }
 }
-/** MODULES **/
+/**
+ * @author Prenom Nom courriel
+ * @todo Lier les modules avec des instructions @import
+ * @todo Compléter selon l'énoncé de l'exercice
+ */
+/*
+ * ------------------
+ * TABLE DES MATIERES
+ * ------------------
+ * LIBRAIRIE
+ ** Normalize
+ *
+ * UTILITAIRES
+ ** Variables
+ ** Mixins
+ *
+ * BASE
+ ** Typographie
+ ** Hyperliens
+ ** Boutons
+ *
+ * MODULES
+ ** gds - Styles généraux du Guide de styles
+ ** palette - Palette de couleurs
+ ** listeInteractivite - Éléments interactifs
+ */
+/** LIBRAIRIES **/
+/* Normalize */
+/** UTILITAIRES **/
+/*
+* CSS pour le formulaire
+*/
+ol {
+  list-style-type: none;
+}
+
+.formulaire {
+  padding: clamp(1rem, 2vw, 2rem);
+  /* Styles pour le formulaire */
+}
+.formulaire__etapes {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  background-color: white;
+  margin: auto;
+  padding: 1rem 2rem;
+}
+.formulaire__etapes__etape {
+  width: fit-content;
+}
+.formulaire__etapes__etape a {
+  text-decoration: none;
+  font-family: "Lalezar", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 3rem;
+  color: black;
+}
+.formulaire__logo {
+  display: block;
+  margin: auto;
+  width: 150px;
+  height: auto;
+  margin-bottom: 20px;
+}
+@media (min-width: 768px) {
+  .formulaire__logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: 40px;
+  }
+}
+.formulaire__form {
+  background-color: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border: none;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  padding: clamp(1rem, 2vw, 2rem);
+  border-radius: 32px;
+  width: fit-content;
+  margin: auto;
+  /* Styles pour le titre */
+  /* Styles pour les champs input */
+  /* Styles pour le footer/boutons suivant/précédent */
+}
+.formulaire__form__choixpaiement {
+  margin: 30px 0px 100px 0px;
+  /* Styles pour les boutons radio */
+}
+@media (min-width: 768px) {
+  .formulaire__form__choixpaiement {
+    width: 400px;
+    padding-bottom: 50px;
+  }
+}
+.formulaire__form__choixpaiement__label {
+  display: inline-block;
+  padding: 16px 16px;
+  border: 1px solid #052479;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: bold;
+  background-color: white;
+  color: #052479;
+  margin-top: 1rem;
+  width: fit-content;
+}
+.formulaire__form__choixpaiement__label:hover {
+  background-color: #052479;
+  color: white;
+}
+.formulaire__form__choixpaiement__label:active {
+  background-color: #031a3d;
+  border-color: #031a3d;
+}
+.formulaire__form__titre {
+  font-family: "Lalezar", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #005EFF;
+  margin-top: 0px;
+  border-bottom: 2px solid #005EFF;
+  padding-bottom: 10px;
+  width: 80%;
+  margin: auto;
+}
+@media (min-width: 768px) {
+  .formulaire__form__titre {
+    font-size: 3rem;
+    width: 380px;
+    margin: auto;
+  }
+}
+.formulaire__form input {
+  width: auto;
+  display: inline-block;
+  padding: 8px 14px;
+  border: 1px solid #052479;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: bold;
+  background-color: white;
+  color: #052479;
+  font-family: "Lalezar", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.formulaire__form input::placeholder {
+  color: #052479;
+}
+.formulaire__form footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  gap: 1rem;
+}
+
+input[type=radio]:checked + label {
+  background-color: #007BFF;
+  color: #fff;
+  border-color: #007BFF;
+}
+
+/* Styles pour les messages d'erreur */
+.erreur {
+  color: red;
+  font-weight: bold;
+  text-align: left;
+  font-size: 16px;
+}
+
 .invisible {
   display: none;
+}
+
+.lalezar-regular {
+  font-family: "Lalezar", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 /*# sourceMappingURL=styles.css.map */

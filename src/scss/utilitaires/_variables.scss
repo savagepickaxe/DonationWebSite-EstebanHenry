@@ -12,11 +12,13 @@
 
 @font-face {
   font-family: Futura, sans-serif;
-  src: 	url('../fonts/Futura.ttc') format('truetype');
+  src: url('../fonts/Futura.ttc') format('truetype');
 }
 
-$fontePrimaire : Futura, sans-serif;
-$fonteSecondaire : Arial, sans-serif;
+$fontePrimaire : Futura,
+sans-serif;
+$fonteSecondaire : Arial,
+sans-serif;
 
 /** Palette de couleurs **/
 // Utiliser http://chir.ag/projects/name-that-color pour obtenir des noms uniques et mémorisables
@@ -36,3 +38,4 @@ $hyperlien: $bleuMarin;
 
 /** Points de rupture **/
 $desktop : 601px;
+$padding : clamp(1rem, 2vw, 2rem);

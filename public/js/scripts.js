@@ -3,9 +3,11 @@ let etapeActuelle = 0;
 let boutonPrecedent;
 let boutonSuivant;
 let messages = {};
+let autreRadio = null;
+let autreInput = null;
 const articleFooter = document.createElement("footer");
 const questionaireComplet = document.querySelectorAll("fieldset");
-const imagesBackground = document.querySelectorAll(".imagesBackground div");
+const imagesBackground = document.querySelectorAll(".imagesBackground li");
 /*
 * Fonction pour initialiser le formulaire
 */
@@ -111,12 +113,6 @@ function validerEtape(etape) {
             etapeValide = false;
         }
     });
-    if (!etapeValide) {
-        questionaireComplet[etape].classList.add("erreur");
-    }
-    else {
-        questionaireComplet[etape].classList.remove("erreur");
-    }
     return etapeValide;
 }
 /*
@@ -135,6 +131,24 @@ function creerBoutons() {
     articleFooter.appendChild(boutonSuivant);
     boutonPrecedent.addEventListener("click", goPrecedent);
     boutonSuivant.addEventListener("click", goSuivant);
+    const autreRadio = document.getElementById("autre-montant");
+    const autreInput = document.getElementById("autre-input");
+    // cacher au départ
+    if (autreInput) {
+        autreInput.style.display = "none";
+    }
+    // quand on change de radio
+    document.querySelectorAll('input[name="montant-donation"]').forEach(radio => {
+        radio.addEventListener("change", () => {
+            if (autreRadio.checked) {
+                autreInput.style.display = "inline-block";
+            }
+            else {
+                autreInput.style.display = "none";
+                autreInput.value = ""; // reset si pas sélectionné
+            }
+        });
+    });
 }
 /*
 * Initialisation du formulaire et des boutons

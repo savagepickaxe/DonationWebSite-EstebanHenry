@@ -8,43 +8,51 @@
     <link rel="icon" type="image/png" href="../asset/images/teamWaterLogo.png">
     <link rel="stylesheet" href="css/styles.css">
     <script defer src="js/scripts.js"></script>
-    <title>
-        TeamWater
-    </title>
+    <title>TeamWater</title>
 </head>
-
 <body>
-    <div class="imagesBackground">
-        <div class="imagesBackground__images"><img src="../asset/images/image1.jpg" alt=""></div>
-        <div class="imagesBackground__images"><img src="../asset/images/image2.jpg" alt=""></div>
-        <div class="imagesBackground__images"><img src="../asset/images/image3.jpg" alt=""></div>
-        <div class="imagesBackground__images"><img src="../asset/images/image4.jpg" alt=""></div>
-    </div>
-    
+    <!-- Section des images en background -->
+    <ol class="imagesBackground" aria-hidden="true">
+        <li class="imagesBackground__images" aria-current="step" ><img src="../asset/images/image1.jpg" alt="image couverture"></li>
+        <li class="imagesBackground__images" data-etape="2"><img src="../asset/images/image2.jpg" alt="image couverture"></li>
+        <li class="imagesBackground__images" data-etape="3"><img src="../asset/images/image3.jpg" alt="image couverture"></li>
+        <li class="imagesBackground__images" data-etape="4"><img src="../asset/images/image4.jpg" alt="image couverture"></li>
+    </ol>
+    <!-- Formulaire de don -->
     <form action="merci.html" method="get">
         <section class="formulaire">
-            <img src="../asset\images\teamWaterLogo.png" alt="logo">
-            <fieldset>
-                 <h2>Soutenez TeamWater</h2>
-                <label for="unique">Don unique</label>
+            <ol class="formulaire__etapes">
+                <li class="formulaire__etapes__etape" aria-current="step" data-etape="1"><a href="#etape1"><span>1</span></a></li>
+                <li class="formulaire__etapes__etape" data-etape="2"><a href="#etape2"><span>2</span></a></li>
+                <li class="formulaire__etapes__etape" data-etape="3"><a href="#etape3"><span>3</span></a></li>
+                <li class="formulaire__etapes__etape" data-etape="4"><a href="#etape4"><span>4</span></a></li>
+            </ol>
+            <img class="formulaire__logo" src="../asset\images\teamWaterLogo.png" alt="logo">
+            <!-- - Étape 1: Choix du type et du montant du don -->
+            <fieldset class="forumulaire__etape1 formulaire__form" id="etape1">
+                 <h2 class="formulaire__form__titre">Soutenez TeamWater</h2>
+                 <div class="formulaire__form__choixpaiement">
                 <input type="radio" id="unique" name="type-donation" value="Don unique" checked>
-                <label for="mensuel">Don mensuel</label>
+                <label for="unique" class="formulaire__form__choixpaiement__label">Don unique</label>
                 <input type="radio" id="mensuel" name="type-donation" value="Don mensuel">
-                <label for="montant-10">$10</label>
-                <input type="radio" id="montant-10" name="montant-donation" value="10" checked>
-                <label for="montant-25">$25</label>
+                <label for="mensuel" class="formulaire__form__choixpaiement__label">Don mensuel</label>
+                <input type="radio" id="montant-10" name="montant-donation" value="10" >
+                <label for="montant-10" class="formulaire__form__choixpaiement__label">$10</label>
                 <input type="radio" id="montant-25" name="montant-donation" value="25">
-                <label for="montant-50">$50</label>
-                <input type="radio" id="montant-50" name="montant-donation" value="50">
-                <label for="autre-montant">Autre montant</label>
+                <label for="montant-25" class="formulaire__form__choixpaiement__label" >$25</label>
+                <input type="radio" id="montant-50" name="montant-donation" value="50"> 
+                <label for="montant-50" class="formulaire__form__choixpaiement__label">$50</label>       
                 <input type="radio" id="autre-montant" name="montant-donation" value="autre" maxlength="12">
-                <input type="number" id="autre-input" name="autre-montant" min="1" placeholder="Montant en $"
-                    disabled>
+                <label for="autre-montant" class="formulaire__form__choixpaiement__label">Autre montant</label>
+                                  <input type="number" id="autre-input" name="autre-montant" min="1" placeholder="Montant en $" aria-disabled="true">
+
+              
+                    </div>
                     <div class="erreur" id="erreur-montant"></div>
             </fieldset>
-          
-            <fieldset>
-                  <h2>Soutenez TeamWater</h2>
+            <!-- - Étape 2: Informations personnelles -->
+            <fieldset class=" formulaire__form" id="etape2">
+                  <h2 class="formulaire__form__titre">Soutenez TeamWater</h2>
                 <label for="nom">Nom</label>
                 <input type="text" id="nom" name="nom" maxlength="30" required>
                 <div class="erreur" id="erreur-nom"></div>
@@ -54,9 +62,9 @@
                 <input type="email" id="courriel" name="courriel" maxlength="30" required>
                 <div class="erreur" id="erreur-courriel"></div>
             </fieldset>
-
-            <fieldset>
-                    <h2>Soutenez TeamWater</h2>
+            <!-- - Étape 3: Informations de paiement -->
+            <fieldset class=" formulaire__form" id="etape3">
+                    <h2 class="formulaire__form__titre">Soutenez TeamWater</h2>
                 <label for="carte-credit">Carte de crédit</label>
                 <input type="radio" id="carte-credit" name="methode-paiement" value="Carte de crédit" maxlength="16" checked>
                 <label for="numero-carte">Numéro de carte</label>
@@ -69,9 +77,9 @@
                 <div class="erreur" id="erreur-date-expiration"></div>
                 <div class="erreur" id="erreur-cvv"></div>
             </fieldset>
-          
-            <fieldset>
-                  <h2>Soutenez TeamWater</h2>
+            <!-- - Étape 4: Résumé et confirmation -->
+            <fieldset class=" formulaire__form" id="etape4">
+                  <h2 class="formulaire__form__titre">Soutenez TeamWater</h2>
                 <legend>Resumé du don</legend>
                 <p>Type de don: <span id="resume-type">Don unique</span></p>
                 <p>Montant du don: $<span id="resume-montant">10</span></p>
@@ -80,8 +88,8 @@
                 <p>Courriel: <span id="resume-email"></span></p>
                 <p>Méthode de paiement: <span id="resume-paiement">Carte de crédit</span></p>
             </fieldset>
-        
-                 <button type="submit">Faire un don</button>
+                <!-- Bouton pour soumettre le formulaire -->
+                 <button type="submit">Faire un don <svg xmlns="http://www.w3.org/2000/svg" width="12" height="24"><path fill="currentColor" fill-rule="evenodd" d="M10.157 12.711 4.5 18.368l-1.414-1.414 4.95-4.95-4.95-4.95L4.5 5.64l5.657 5.657a1 1 0 0 1 0 1.414"/></svg></button>
         </section>
 
     </form>

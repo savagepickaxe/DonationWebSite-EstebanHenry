@@ -44,8 +44,17 @@
 @use "base/grille";
 @use "base/fieldset";
 @use "base/imagesBackground";
+@use "modules/formulaire";
 
 /** MODULES **/
 .invisible {
     display: none;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Abel&family=DM+Serif+Text:ital@0;1&family=Judson:ital,wght@0,400;0,700;1,400&family=Lalezar&display=swap');
+
+.lalezar-regular {
+    font-family: "Lalezar", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }

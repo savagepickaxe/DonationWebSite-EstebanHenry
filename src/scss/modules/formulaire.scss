@@ -1,0 +1,168 @@
+@use "../utilitaires/variables";
+
+/*
+* CSS pour le formulaire
+*/
+ol {
+    list-style-type: none;
+}
+
+.formulaire {
+    padding: variables.$padding;
+
+
+    &__etapes {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        background-color: white;
+
+        margin: auto;
+        padding: 1rem 2rem;
+
+        &__etape {
+            width: fit-content;
+
+            & a {
+                text-decoration: none;
+                font-family: "Lalezar", sans-serif;
+                font-weight: 400;
+                font-style: normal;
+                font-size: 3rem;
+                color: black;
+            }
+        }
+    }
+
+    &__logo {
+        display: block;
+        margin: auto;
+        width: 150px;
+        height: auto;
+        margin-bottom: 20px;
+
+        @media (min-width:768px) {
+            width: 200px;
+            height: auto;
+            margin-bottom: 40px;
+        }
+    }
+
+    /* Styles pour le formulaire */
+    &__form {
+        background-color: white;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        border: none;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-align: center;
+        padding: variables.$padding;
+        border-radius: 32px;
+        width: fit-content;
+        margin: auto;
+
+        &__choixpaiement {
+
+            margin: 30px 0px 100px 0px;
+
+            @media (min-width:768px) {
+                width: 400px;
+                padding-bottom: 50px;
+            }
+
+            /* Styles pour les boutons radio */
+            &__label {
+                display: inline-block;
+                padding: 16px 16px;
+                border: 1px solid #052479;
+                border-radius: 12px;
+                cursor: pointer;
+                transition: background-color 0.3s, color 0.3s;
+                font-weight: bold;
+                background-color: white;
+                color: #052479;
+                margin-top: 1rem;
+                width: fit-content;
+
+                &:hover {
+                    background-color: #052479;
+                    color: white;
+                }
+
+                &:active {
+                    background-color: #031a3d;
+                    border-color: #031a3d;
+                }
+            }
+        }
+
+        /* Styles pour le titre */
+        &__titre {
+            font-family: "Lalezar", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #005EFF;
+            margin-top: 0px;
+            border-bottom: 2px solid #005EFF;
+            padding-bottom: 10px;
+            width: 80%;
+            margin: auto;
+
+            @media (min-width:768px) {
+                font-size: 3rem;
+
+                width: 380px;
+                margin: auto;
+            }
+        }
+
+        /* Styles pour les champs input */
+        & input {
+            width: auto;
+            display: inline-block;
+            padding: 8px 14px;
+            border: 1px solid #052479;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            font-weight: bold;
+            background-color: white;
+            color: #052479;
+            font-family: "Lalezar", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+
+            &::placeholder {
+                color: #052479;
+            }
+        }
+
+        /* Styles pour le footer/boutons suivant/précédent */
+        & footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            gap: 1rem;
+
+
+        }
+    }
+}
+
+input[type="radio"]:checked+label {
+    background-color: #007BFF;
+    color: #fff;
+    border-color: #007BFF;
+}
+
+/* Styles pour les messages d'erreur */
+.erreur {
+    color: red;
+    font-weight: bold;
+    text-align: left;
+    font-size: 16px;
+}
