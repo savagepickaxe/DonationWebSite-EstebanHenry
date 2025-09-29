@@ -18,5 +18,25 @@
     },
     "message": {
         "vide": "Entrez un message."
+    },
+    "carte-credit": {
+        "vide": "Vous devez entrer un numéro de carte de crédit.",
+        "pattern": "Le numéro de carte de crédit doit être composé de 16 chiffres.",
+        "type" : "Le numéro de carte de crédit doit être une chaîne de caractères."
+    },
+    "numero-carte": {
+        "vide": "Vous devez entrer un numéro de carte.",
+        "pattern": "Le numéro de carte doit être composé de 16 chiffres.",
+        "type" : "Le numéro de carte doit être une chaîne de caractères."
+    },
+    "date-expiration": {
+        "vide": "Vous devez entrer une date d'expiration.",
+        "pattern": "La date d'expiration doit être au format MM/AA.",
+        "type" : "La date d'expiration doit être une chaîne de caractères."
+    },
+    "cvv": {
+        "vide": "Vous devez entrer un code de sécurité.",
+        "pattern": "Le code de sécurité doit être composé de 3 chiffres.",
+        "type" : "Le code de sécurité doit être une chaîne de caractères."
     }
 }

@@ -53,7 +53,10 @@ function goSuivant(event) {
         });
         boutonPrecedent?.classList.toggle("invisible", false);
         if (etapeActuelle === questionaireComplet.length - 1) {
-            boutonSuivant?.classList.toggle("invisible", true);
+            boutonSuivant?.classList.add("invisible");
+        }
+        else {
+            boutonSuivant?.classList.remove("invisible");
         }
     }
 }
@@ -69,6 +72,46 @@ function changerEtape(etapeSuivante) {
         }
     });
     questionaireComplet[etapeSuivante].appendChild(articleFooter);
+    if (etapeSuivante === questionaireComplet.length - 1) {
+        mettreAJourResume();
+    }
+}
+/*
+* Fonction pour mettre à jour le résumé
+*/
+function mettreAJourResume() {
+    const typeDonation = document.querySelector('input[name="type-donation"]:checked');
+    const montantDonation = document.querySelector('input[name="montant-donation"]:checked');
+    const autreMontant = document.getElementById("autre-input");
+    const nomDonateur = document.getElementById("nom");
+    const emailDonateur = document.getElementById("courriel");
+    const compagnieDonateur = document.getElementById("entreprise");
+    const resumeType = document.getElementById("resume-type");
+    const resumeMontant = document.getElementById("resume-montant");
+    const resumeNom = document.getElementById("resume-nom");
+    const resumeCompagnie = document.getElementById("resume-compagnie");
+    const resumeEmail = document.getElementById("resume-email");
+    const resumePaiement = document.getElementById("resume-paiement");
+    if (typeDonation) {
+        resumeType.innerText = typeDonation.value;
+    }
+    if (montantDonation) {
+        if (montantDonation.value === "autre") {
+            resumeMontant.innerText = autreMontant.value + " $";
+        }
+        else {
+            resumeMontant.innerText = montantDonation.value + " $";
+        }
+    }
+    if (nomDonateur) {
+        resumeNom.innerText = nomDonateur.value;
+    }
+    if (emailDonateur) {
+        resumeEmail.innerText = emailDonateur.value;
+    }
+    if (compagnieDonateur) {
+        resumeCompagnie.innerText = compagnieDonateur.value ? compagnieDonateur.value : "Aucune";
+    }
 }
 async function obtenirMessages() {
     const reponse = await fetch('objJSONMessages.json');
@@ -97,6 +140,7 @@ function validerChamp(champ) {
     }
     else {
         valide = true;
+        erreurElement.innerText = "";
     }
     return valide;
 }
@@ -107,6 +151,10 @@ function validerEtape(etape) {
     let etapeValide = true;
     const champs = questionaireComplet[etape].querySelectorAll("input, select, textarea");
     champs.forEach((champ) => {
+        if (champ.hasAttribute("data-validation") && champ.getAttribute("data-validation") === "ignore") {
+            return; // ignorer ce champ
+        }
+        console.log(champ);
         const estValide = validerChamp(champ);
         console.log("champ " + champ.id + " estValide ", estValide);
         if (!estValide) {
@@ -119,11 +167,11 @@ function validerEtape(etape) {
 * Fonction pour créer les boutons
 */
 function creerBoutons() {
-    const boutonPrecedent = document.createElement("button");
+    boutonPrecedent = document.createElement("button");
     boutonPrecedent.type = "button";
     boutonPrecedent.id = "precedent-unique";
     boutonPrecedent.textContent = "Précédent";
-    const boutonSuivant = document.createElement("button");
+    boutonSuivant = document.createElement("button");
     boutonSuivant.type = "button";
     boutonSuivant.id = "next-unique";
     boutonSuivant.textContent = "Suivant";
@@ -151,6 +199,44 @@ function creerBoutons() {
     });
 }
 /*
+* Fonction pour initialiser la navigation par étapes
+*/
+function initialiserNavigationEtapes() {
+    const liensEtapes = document.querySelectorAll("[data-etape]");
+    liensEtapes.forEach((lien) => {
+        lien.addEventListener("click", changementEtapeDirecte);
+    });
+}
+/*
+* Fonction pour changer d'étape en cliquant sur les liens
+*/
+function changementEtapeDirecte(event) {
+    event.preventDefault();
+    const elementClique = event.currentTarget;
+    const numeroClique = parseInt(elementClique.dataset.etape || "0", 10) - 1;
+    console.log(numeroClique);
+    if (numeroClique > etapeActuelle) {
+        return;
+    }
+    etapeActuelle = numeroClique;
+    changerEtape(etapeActuelle);
+    imagesBackground.forEach((img, index) => {
+        img.classList.toggle("active", index === etapeActuelle);
+    });
+    if (etapeActuelle === 0) {
+        boutonPrecedent?.classList.add("invisible");
+    }
+    else {
+        boutonPrecedent?.classList.remove("invisible");
+    }
+    if (etapeActuelle === questionaireComplet.length - 1) {
+        boutonSuivant?.classList.add("invisible");
+    }
+    else {
+        boutonSuivant?.classList.remove("invisible");
+    }
+}
+/*
 * Initialisation du formulaire et des boutons
 */
 document.addEventListener("DOMContentLoaded", () => {
@@ -158,4 +244,5 @@ document.addEventListener("DOMContentLoaded", () => {
     questionaireComplet[0].appendChild(articleFooter);
     initialiserFormulaire();
     obtenirMessages();
+    initialiserNavigationEtapes();
 });

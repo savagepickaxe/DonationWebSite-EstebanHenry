@@ -76,7 +76,9 @@
         flex: 1;
         opacity: 0.7;
 
-
+        & h3 {
+          display: none;
+        }
       }
 
       & img {
@@ -96,6 +98,7 @@
         z-index: 1;
         margin: 0;
         cursor: pointer;
+
       }
     }
   }

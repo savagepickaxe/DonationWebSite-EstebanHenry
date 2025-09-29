@@ -5,6 +5,8 @@ let messages = {} as erreursJSON;
 let autreRadio: HTMLInputElement | null = null;
 let autreInput: HTMLInputElement | null = null;
 const articleFooter = document.createElement("footer");
+const questionaireComplet = document.querySelectorAll("fieldset");
+const imagesBackground = document.querySelectorAll(".imagesBackground li");
 
 interface messageErreur {
     vide?: string;
@@ -15,8 +17,6 @@ interface erreursJSON {
     [fieldName: string]: messageErreur;
 }
 
-const questionaireComplet = document.querySelectorAll("fieldset");
-const imagesBackground = document.querySelectorAll(".imagesBackground li");
 
 /*
 * Fonction pour initialiser le formulaire
@@ -53,6 +53,7 @@ function goPrecedent(): void {
 * Fonction pour aller à l'étape suivante
 */
 function goSuivant(event: Event): void {
+
     event.preventDefault();
     const etapeValide = validerEtape(etapeActuelle);
     if (!etapeValide) {
@@ -66,7 +67,10 @@ function goSuivant(event: Event): void {
         });
         boutonPrecedent?.classList.toggle("invisible", false);
         if (etapeActuelle === questionaireComplet.length - 1) {
-            boutonSuivant?.classList.toggle("invisible", true);
+            boutonSuivant?.classList.add("invisible");
+        }
+        else {
+            boutonSuivant?.classList.remove("invisible");
         }
     }
 }
@@ -74,6 +78,8 @@ function goSuivant(event: Event): void {
 * Fonction pour changer d'étape
 */
 function changerEtape(etapeSuivante: number): void {
+
+
     questionaireComplet.forEach(function (p, index) {
         p.classList.toggle("invisible", index >= 0 && index !== etapeSuivante);
         // console.log("etapeSuivante " + etapeSuivante + " index " + index);
@@ -82,12 +88,53 @@ function changerEtape(etapeSuivante: number): void {
         }
     });
     questionaireComplet[etapeSuivante].appendChild(articleFooter);
+
+    if (etapeSuivante === questionaireComplet.length - 1) {
+        mettreAJourResume();
+    }
+}
+/*
+* Fonction pour mettre à jour le résumé
+*/
+function mettreAJourResume(): void {
+    const typeDonation = document.querySelector('input[name="type-donation"]:checked') as HTMLInputElement;
+    const montantDonation = document.querySelector('input[name="montant-donation"]:checked') as HTMLInputElement;
+    const autreMontant = document.getElementById("autre-input") as HTMLInputElement;
+    const nomDonateur = document.getElementById("nom") as HTMLInputElement;
+    const emailDonateur = document.getElementById("courriel") as HTMLInputElement;
+    const compagnieDonateur = document.getElementById("entreprise") as HTMLInputElement;
+
+    const resumeType = document.getElementById("resume-type") as HTMLSpanElement;
+    const resumeMontant = document.getElementById("resume-montant") as HTMLSpanElement;
+    const resumeNom = document.getElementById("resume-nom") as HTMLSpanElement;
+    const resumeCompagnie = document.getElementById("resume-compagnie") as HTMLSpanElement;
+    const resumeEmail = document.getElementById("resume-email") as HTMLSpanElement;
+    const resumePaiement = document.getElementById("resume-paiement") as HTMLSpanElement;
+
+    if (typeDonation) {
+        resumeType.innerText = typeDonation.value;
+    }
+    if (montantDonation) {
+        if (montantDonation.value === "autre") {
+            resumeMontant.innerText = autreMontant.value + " $";
+        } else {
+            resumeMontant.innerText = montantDonation.value + " $";
+        }
+    }
+    if (nomDonateur) {
+        resumeNom.innerText = nomDonateur.value;
+    }
+    if (emailDonateur) {
+        resumeEmail.innerText = emailDonateur.value;
+    }
+    if (compagnieDonateur) {
+        resumeCompagnie.innerText = compagnieDonateur.value ? compagnieDonateur.value : "Aucune";
+    }
 }
 async function obtenirMessages(): Promise<void> {
     const reponse = await fetch('objJSONMessages.json')
     messages = await reponse.json();
     console.log(messages, " messages obtenusYAUNMESAGE");
-
 
 }
 /*
@@ -110,6 +157,7 @@ function validerChamp(champ: HTMLInputElement | HTMLSelectElement | HTMLTextArea
         erreurElement.innerText = messages[idChamp].pattern;
     } else {
         valide = true;
+        erreurElement.innerText = "";
     }
     return valide;
 }
@@ -120,6 +168,10 @@ function validerEtape(etape: number): boolean {
     let etapeValide = true;
     const champs = questionaireComplet[etape].querySelectorAll("input, select, textarea");
     champs.forEach((champ) => {
+        if (champ.hasAttribute("data-validation") && champ.getAttribute("data-validation") === "ignore") {
+            return; // ignorer ce champ
+        }
+        console.log(champ);
         const estValide = validerChamp(champ as HTMLInputElement);
         console.log("champ " + champ.id + " estValide ", estValide);
         if (!estValide) {
@@ -134,12 +186,12 @@ function validerEtape(etape: number): boolean {
 */
 function creerBoutons(): void {
 
-    const boutonPrecedent = document.createElement("button");
+    boutonPrecedent = document.createElement("button");
     boutonPrecedent.type = "button";
     boutonPrecedent.id = "precedent-unique";
     boutonPrecedent.textContent = "Précédent";
 
-    const boutonSuivant = document.createElement("button");
+    boutonSuivant = document.createElement("button");
     boutonSuivant.type = "button";
     boutonSuivant.id = "next-unique";
     boutonSuivant.textContent = "Suivant";
@@ -168,6 +220,44 @@ function creerBoutons(): void {
         });
     });
 }
+/*
+* Fonction pour initialiser la navigation par étapes
+*/
+function initialiserNavigationEtapes(): void {
+    const liensEtapes = document.querySelectorAll<HTMLAnchorElement>("[data-etape]");
+    liensEtapes.forEach((lien) => {
+        lien.addEventListener("click", changementEtapeDirecte);
+    });
+}
+/*
+* Fonction pour changer d'étape en cliquant sur les liens
+*/
+function changementEtapeDirecte(event: Event): void {
+    event.preventDefault();
+    const elementClique = event.currentTarget as HTMLAnchorElement;
+    const numeroClique = parseInt(elementClique.dataset.etape || "0", 10) - 1;
+    console.log(numeroClique)
+    if (numeroClique > etapeActuelle) {
+        return
+    }
+    etapeActuelle = numeroClique;
+    changerEtape(etapeActuelle);
+    imagesBackground.forEach((img, index) => {
+        img.classList.toggle("active", index === etapeActuelle);
+    }
+    );
+    if (etapeActuelle === 0) {
+        boutonPrecedent?.classList.add("invisible");
+    } else {
+        boutonPrecedent?.classList.remove("invisible");
+    }
+    if (etapeActuelle === questionaireComplet.length - 1) {
+        boutonSuivant?.classList.add("invisible");
+    }
+    else {
+        boutonSuivant?.classList.remove("invisible");
+    }
+}
 
 /*
 * Initialisation du formulaire et des boutons
@@ -177,4 +267,5 @@ document.addEventListener("DOMContentLoaded", () => {
     questionaireComplet[0].appendChild(articleFooter);
     initialiserFormulaire();
     obtenirMessages();
+    initialiserNavigationEtapes();
 });

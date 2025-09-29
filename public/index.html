@@ -13,10 +13,10 @@
 <body>
     <!-- Section des images en background -->
     <ol class="imagesBackground" aria-hidden="true">
-        <li class="imagesBackground__images" aria-current="step" ><img src="../asset/images/image1.jpg" alt="image couverture"></li>
-        <li class="imagesBackground__images" data-etape="2"><img src="../asset/images/image2.jpg" alt="image couverture"></li>
-        <li class="imagesBackground__images" data-etape="3"><img src="../asset/images/image3.jpg" alt="image couverture"></li>
-        <li class="imagesBackground__images" data-etape="4"><img src="../asset/images/image4.jpg" alt="image couverture"></li>
+        <li class="imagesBackground__images" aria-current="step" ><h3>1.Donation</h3><img src="asset/images/image1.jpg" alt="image couverture"></li>
+        <li class="imagesBackground__images" data-etape="2"><h3>2.Informations</h3><img src="asset/images/image2.jpg" alt="image couverture"></li>
+        <li class="imagesBackground__images" data-etape="3"><h3>3.Paiement</h3><img src="asset/images/image3.jpg" alt="image couverture"></li>
+        <li class="imagesBackground__images" data-etape="4"><h3>4.Resumé</h3><img src="asset/images/image4.jpg" alt="image couverture"></li>
     </ol>
     <!-- Formulaire de don -->
     <form action="merci.html" method="get">
@@ -27,69 +27,70 @@
                 <li class="formulaire__etapes__etape" data-etape="3"><a href="#etape3"><span>3</span></a></li>
                 <li class="formulaire__etapes__etape" data-etape="4"><a href="#etape4"><span>4</span></a></li>
             </ol>
-            <img class="formulaire__logo" src="../asset\images\teamWaterLogo.png" alt="logo">
+            <img class="formulaire__logo" src="asset/images/teamWaterLogo.png" alt="logo">
             <!-- - Étape 1: Choix du type et du montant du don -->
             <fieldset class="forumulaire__etape1 formulaire__form" id="etape1">
                  <h2 class="formulaire__form__titre">Soutenez TeamWater</h2>
                  <div class="formulaire__form__choixpaiement">
-                <input type="radio" id="unique" name="type-donation" value="Don unique" checked>
+                <input type="radio" id="unique" name="type-donation" value="Don unique" data-validation="ignore" checked>
                 <label for="unique" class="formulaire__form__choixpaiement__label">Don unique</label>
-                <input type="radio" id="mensuel" name="type-donation" value="Don mensuel">
+                <input type="radio" id="mensuel" name="type-donation" value="Don mensuel" data-validation="ignore">
                 <label for="mensuel" class="formulaire__form__choixpaiement__label">Don mensuel</label>
-                <input type="radio" id="montant-10" name="montant-donation" value="10" >
+                <input type="radio" id="montant-10" name="montant-donation" value="10" data-validation="ignore" checked>
                 <label for="montant-10" class="formulaire__form__choixpaiement__label">$10</label>
-                <input type="radio" id="montant-25" name="montant-donation" value="25">
+                <input type="radio" id="montant-25" name="montant-donation" value="25" data-validation="ignore">
                 <label for="montant-25" class="formulaire__form__choixpaiement__label" >$25</label>
-                <input type="radio" id="montant-50" name="montant-donation" value="50"> 
+                <input type="radio" id="montant-50" name="montant-donation" value="50" data-validation="ignore"> 
                 <label for="montant-50" class="formulaire__form__choixpaiement__label">$50</label>       
-                <input type="radio" id="autre-montant" name="montant-donation" value="autre" maxlength="12">
+                <input type="radio" id="autre-montant" name="montant-donation" value="autre" data-validation="ignore">
                 <label for="autre-montant" class="formulaire__form__choixpaiement__label">Autre montant</label>
-                                  <input type="number" id="autre-input" name="autre-montant" min="1" placeholder="Montant en $" aria-disabled="true">
-
-              
+                                  <input type="number" id="autre-input" name="autre-montant" min="1" placeholder="Montant en $" data-validation="ignore" aria-describedby="erreur-montant" aria-disabled="true">              
                     </div>
-                    <div class="erreur" id="erreur-montant"></div>
+                    <div class="erreur" id="erreur-montant" aria-live="polite"></div>
             </fieldset>
             <!-- - Étape 2: Informations personnelles -->
             <fieldset class=" formulaire__form" id="etape2">
                   <h2 class="formulaire__form__titre">Soutenez TeamWater</h2>
                 <label for="nom">Nom</label>
-                <input type="text" id="nom" name="nom" maxlength="30" required>
-                <div class="erreur" id="erreur-nom"></div>
+                <input type="text" id="nom" name="nom" maxlength="30" aria-describedby="erreur-nom" required>
+                <div class="erreur" id="erreur-nom" aria-live="polite"></div>
                 <label for="entreprise">Entreprise (optionnel)</label>
-                <input type="text" id="entreprise" name="entreprise" maxlength="30">
+                <input type="text" id="entreprise" name="entreprise" maxlength="30" data-validation="ignore">
                 <label for="courriel">Courriel</label>
-                <input type="email" id="courriel" name="courriel" maxlength="30" required>
-                <div class="erreur" id="erreur-courriel"></div>
+                <input type="email" id="courriel" name="courriel" maxlength="30" aria-describedby="erreur-courriel" required>
+                <div class="erreur" id="erreur-courriel" aria-live="polite"></div>
             </fieldset>
             <!-- - Étape 3: Informations de paiement -->
             <fieldset class=" formulaire__form" id="etape3">
                     <h2 class="formulaire__form__titre">Soutenez TeamWater</h2>
                 <label for="carte-credit">Carte de crédit</label>
-                <input type="radio" id="carte-credit" name="methode-paiement" value="Carte de crédit" maxlength="16" checked>
+                <input type="text" id="carte-credit" name="methode-paiement"  maxlength="16" aria-describedby="erreur-numero-carte"  required>
+                                   <div class="erreur" id="erreur-carte-credit" aria-live="polite"></div>
+
                 <label for="numero-carte">Numéro de carte</label>
                 <input type="text" id="numero-carte" name="numero-carte" pattern="\d{16}" maxlength="16" required>
+                   <div class="erreur" id="erreur-numero-carte" aria-live="polite"></div>
                 <label for="date-expiration">Date d'expiration</label>
-                <input type="month" id="date-expiration" name="date-expiration" maxlength="20" required>
+                <input type="month" id="date-expiration" name="date-expiration" aria-describedby="erreur-date-expiration" required>
+                 <div class="erreur" id="erreur-date-expiration" aria-live="polite"></div>
                 <label for="cvv">CVV</label>
-                <input type="text" id="cvv" name="cvv" pattern="\d{4}" maxlength="4" inputmode="numeric" required>
-                <div class="erreur" id="erreur-numero-carte"></div>
-                <div class="erreur" id="erreur-date-expiration"></div>
-                <div class="erreur" id="erreur-cvv"></div>
+                <input type="text" id="cvv" name="cvv" pattern="\d{4}" maxlength="4" inputmode="numeric" aria-describedby="erreur-cvv" required>
+                <div class="erreur" id="erreur-cvv" aria-live="polite"></div>
             </fieldset>
             <!-- - Étape 4: Résumé et confirmation -->
             <fieldset class=" formulaire__form" id="etape4">
                   <h2 class="formulaire__form__titre">Soutenez TeamWater</h2>
-                <legend>Resumé du don</legend>
+                
                 <p>Type de don: <span id="resume-type">Don unique</span></p>
-                <p>Montant du don: $<span id="resume-montant">10</span></p>
+                <p>Montant du don: <span id="resume-montant">10</span></p>
                 <p>Nom: <span id="resume-nom"></span></p>
                 <p>Entreprise: <span id="resume-compagnie">N/A</span></p>
                 <p>Courriel: <span id="resume-email"></span></p>
                 <p>Méthode de paiement: <span id="resume-paiement">Carte de crédit</span></p>
+                                 <button type="submit">Faire un don <svg xmlns="http://www.w3.org/2000/svg" width="12" height="24"><path fill="currentColor" fill-rule="evenodd" d="M10.157 12.711 4.5 18.368l-1.414-1.414 4.95-4.95-4.95-4.95L4.5 5.64l5.657 5.657a1 1 0 0 1 0 1.414"/></svg></button>
+
             </fieldset>
                 <!-- Bouton pour soumettre le formulaire -->
-                 <button type="submit">Faire un don <svg xmlns="http://www.w3.org/2000/svg" width="12" height="24"><path fill="currentColor" fill-rule="evenodd" d="M10.157 12.711 4.5 18.368l-1.414-1.414 4.95-4.95-4.95-4.95L4.5 5.64l5.657 5.657a1 1 0 0 1 0 1.414"/></svg></button>
         </section>
 
     </form>
